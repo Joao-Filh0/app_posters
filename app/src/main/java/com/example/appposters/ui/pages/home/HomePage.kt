@@ -15,7 +15,7 @@ import com.example.appposters.core.veiw_model.PostsViewModel
 import com.example.appposters.ui.pages.LocalNavController
 import com.example.appposters.ui.pages.home.components.CardTitleComponent
 import com.example.appposters.ui.theme.AppPostersTheme
-import com.example.appposters.utils.extensions.addArguments
+import com.example.appposters.utils.extensions.addClassArguments
 import com.example.appposters.utils.routes.Routes
 import kotlinx.coroutines.launch
 
@@ -56,7 +56,7 @@ fun HomePage() {
                         val post = data[index]
                         CardTitleComponent(post = post) {
                             scope.launch {
-                                navController.navigate(Routes.DETAILS.addArguments(post.userId, post.id, post.title, post.body))
+                                navController.navigate(Routes.DETAILS.addClassArguments(post))
                             }
                         }
 

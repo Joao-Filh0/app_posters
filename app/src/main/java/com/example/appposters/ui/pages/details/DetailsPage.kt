@@ -1,6 +1,11 @@
 package com.example.appposters.ui.pages.details
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -8,10 +13,14 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.appposters.core.models.PostModel
 import com.example.appposters.ui.theme.AppPostersTheme
 import com.example.appposters.ui.pages.LocalNavController
@@ -44,7 +53,23 @@ fun DetailsPage(post: PostModel) {
             )
         }
     ) {
-        Column(modifier = Modifier.padding(it)) {
+        val scrollState = rememberScrollState()
+        Column(modifier = Modifier.padding(it).verticalScroll(scrollState)) {
+
+            Box(modifier = Modifier.padding(20.dp)) {
+                AsyncImage(
+                    model = post.url,
+                    contentDescription = "Example Image",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp).clip(RoundedCornerShape(10.dp))
+                        .border(
+                            BorderStroke(2.dp, Color.Black),
+                            shape = RoundedCornerShape(10.dp)
+                        ),
+                    contentScale = ContentScale.Crop
+                )
+            }
             _CustomRow(title = "ID", description = post.id.toString())
             _CustomRow(title = "USER-ID", description = "${post.userId}")
             _CustomRow(title = "TITLE", description = post.title)

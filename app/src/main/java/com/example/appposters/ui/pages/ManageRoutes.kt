@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.appposters.core.models.PostModel
 import com.example.appposters.ui.pages.details.DetailsPage
 import com.example.appposters.ui.pages.home.HomePage
-import com.example.appposters.utils.extensions.addArguments
+import com.example.appposters.utils.extensions.setParams
 import com.example.appposters.utils.routes.Routes
 
 val LocalNavController = compositionLocalOf<NavHostController> {
@@ -26,17 +26,10 @@ fun ManageRoutes() {
         NavHost(navController = navController, startDestination = Routes.HOME.name) {
             composable(Routes.HOME.name) { HomePage() }
             composable(
-                Routes.DETAILS.addArguments("{userId}", "{id}", "{title}", "{body}"),
+                Routes.DETAILS.setParams("{data}"),
             ) { entry ->
-                val arguments = entry.arguments
-                val post: PostModel =
-                    PostModel(
-                        title = arguments?.getString("title") ?: "",
-                        body = arguments?.getString("body") ?: "",
-                        userId = (arguments?.getString("userId") ?: "").toInt(),
-                        id = (arguments?.getString("id") ?: "").toInt(),
-                    )
-                DetailsPage(post = post)
+                val data = entry.arguments?.getString("data") ?: ""
+                DetailsPage(post = PostModel.fromJson(data))
 
 
             }

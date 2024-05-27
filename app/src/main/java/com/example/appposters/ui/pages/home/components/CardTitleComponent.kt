@@ -35,7 +35,8 @@ fun CardTitleComponent(post: PostModel, onTap: () -> Unit) {
         }) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 AsyncImage(
-                    model = "https://www.alucare.fr/wp-content/uploads/2023/08/Naruto-scaled.jpg",
+                    // add because api can't return urlImage
+                    model = "https://picsum.photos/id/${post.id}/300/500",
                     contentDescription = "Example Image",
                     modifier = Modifier
                         .width(100.dp)

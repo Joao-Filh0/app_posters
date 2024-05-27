@@ -1,8 +1,9 @@
 package com.example.appposters.core.models
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
-class PostModel(
+data class PostModel(
     @SerializedName("userId")
     var userId: Int,
     @SerializedName("id")
@@ -11,7 +12,15 @@ class PostModel(
     var title: String,
     @SerializedName("body")
     var body: String,
-    val url: String = "https://www.alucare.fr/wp-content/uploads/2023/08/Naruto-scaled.jpg"
-)
+    var url: String = ""
+) {
+    companion object {
+        fun fromJson(json: String): PostModel {
+            val data = Gson().fromJson(json, PostModel::class.java)
+            // add because api can't return urlImage
+            return data.copy(url = "https://picsum.photos/id/${data.id}/300/500")
+        }
+    }
+}
 
 

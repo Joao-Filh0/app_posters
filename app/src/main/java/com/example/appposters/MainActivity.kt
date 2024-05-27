@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppPostersTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Main()
+                    MainApp()
                 }
             }
         }
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun Main() {
+fun MainApp() {
     ManageRoutes()
 
 }
