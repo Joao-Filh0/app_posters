@@ -1,6 +1,7 @@
 package com.example.appposters.core.client_http
 
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -12,7 +13,13 @@ class RetrofitClient {
         private lateinit var INSTANCE: Retrofit
         private fun getInstance(): Retrofit {
             if (!::INSTANCE.isInitialized) {
-                val http = OkHttpClient.Builder()
+
+                val loggingInterceptor = HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+                val http = OkHttpClient.Builder().addInterceptor(loggingInterceptor)
+
+
                 INSTANCE = Retrofit.Builder().baseUrl(BASE_URL)
                     .client(http.build())
                     .addConverterFactory(GsonConverterFactory.create())
