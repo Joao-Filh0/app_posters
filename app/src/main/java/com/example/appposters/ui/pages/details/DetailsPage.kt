@@ -14,12 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.appposters.core.models.PostModel
 import com.example.appposters.ui.theme.AppPostersTheme
-
-import androidx.compose.ui.graphics.Color
+import com.example.appposters.ui.pages.LocalNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsPage(post: PostModel, onBack: () -> Unit = {}) {
+fun DetailsPage(post: PostModel) {
+
+    val navController = LocalNavController.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -31,7 +32,7 @@ fun DetailsPage(post: PostModel, onBack: () -> Unit = {}) {
                     titleContentColor = MaterialTheme.colorScheme.background
                 ),
                 navigationIcon = {
-                    IconButton(onClick = { onBack() }) {
+                    IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back",
