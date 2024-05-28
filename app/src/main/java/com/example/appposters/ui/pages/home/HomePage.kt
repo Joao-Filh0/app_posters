@@ -1,12 +1,11 @@
 package com.example.appposters.ui.pages.home
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.text.style.TextAlign
@@ -49,7 +48,15 @@ fun HomePage() {
     ) {
         Column(modifier = Modifier.padding(it)) {
             if (data.isEmpty()) {
-                Text(text = "Loading...")
+                Box(
+                    modifier =
+                    Modifier.fillMaxWidth()
+                        .fillMaxHeight(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+
             } else {
                 LazyColumn {
                     items(data.size) { index ->
